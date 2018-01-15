@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  KeyboardAvoidingView
 } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
+import LoginForm from './LoginForm';
 
 export default class  Login extends Component {
   render() {
     return(
-      <View style = {styles.container}>
+      <KeyboardAvoidingView behavior='padding' style = {styles.container}>
         <View style = {styles.logoContainer}>
           <Image
-            source = {require('../img/xhdpi/ic_launcher_foreground.png')}
+            source = {require('../../img/xhdpi/ic_launcher_foreground.png')}
           />
         </View>
         <View style = {styles.formContainer}>
+          <LoginForm />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

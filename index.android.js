@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
 
-import Login from './app/components/Login';
+import Login from './app/components/Login/Login';
 import Register from './app/components/Register';
 import Profile from './app/components/Profile';
 import HelpFeed from './app/components/HelpFeed';
