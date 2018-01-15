@@ -29,6 +29,12 @@ export default class LoginForm extends Component {
         <TouchableOpacity style = {styles.buttonContainer}>
           <Text style = {styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress = {() => {
+            this.props.navigator.push({ id:'Register' });
+          }}>
+          <Text style = {styles.footerLinkText}>Cadastre-se</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -52,5 +58,10 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: '#E3F2FD',
+  },
+  footerLinkText: {
+    textAlign: 'center',
+    color: '#E3F2FD',
+    marginTop: 5,
   }
 });
