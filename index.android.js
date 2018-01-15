@@ -1,54 +1,39 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View,
-  Image,
-  Dimensions,
-  Button
 } from 'react-native';
+import { Navigator } from 'react-native-deprecated-custom-components';
 
-var {height, width} = Dimensions.get('window');
-var user = () => {
-  return false
-}
+import Login from './app/components/Login';
+import Register from './app/components/Register';
+import Profile from './app/components/Profile';
+import HelpFeed from './app/components/HelpFeed';
 
 export default class app1 extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Image
-          style={styles.logo}
-          source={require('./bulb2.png')}
-        />
-        <Button
-          onPress={user}
-          title="Entrar"
-          color="#000000"
-        />
-        <Button
-          onPress={user}
-          title="Cadastre-se"
-          color="#000000"
-        />
-      </View>
+      <Navigator
+        initialRoute = {{id: 'Login'}}
+        renderScene = {(route, navigator) => {
+          switch (route.id) {
+            case 'Login':
+              return(<Login navigator = {navigator} />);
+            case 'Register':
+              return(<Register navigator = {navigator} />);
+            case 'Profile':
+              return(<Profile navigator = {navigator} />);
+            case 'HelpFeed':
+              return(<HelpFeed navigator = {navigator} />);
+          }
+        }}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  logo: {
-    width: width,
-    height: height-94,
-    alignContent: 'center',
-  },
 });
 
 AppRegistry.registerComponent('app1', () => app1);
