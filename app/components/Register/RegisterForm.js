@@ -22,18 +22,21 @@ export default class  Login extends Component {
           placeholder = 'E-Mail'
           placeholderTextColor = '#E3F2FD'
           underlineColorAndroid = '#E3F2FD'
+          keyboardType = 'email-address'
         />
         <TextInput
           style = {styles.input}
           placeholder = 'Senha'
           placeholderTextColor = '#E3F2FD'
           underlineColorAndroid = '#E3F2FD'
+          secureTextEntry
         />
         <TextInput
           style = {styles.input}
           placeholder = 'Confirmar Senha'
           placeholderTextColor = '#E3F2FD'
           underlineColorAndroid = '#E3F2FD'
+          secureTextEntry
         />
 
         <TouchableOpacity style = {styles.buttonContainer}>
