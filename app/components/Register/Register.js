@@ -15,10 +15,7 @@ export default class  Login extends Component {
     return(
       <KeyboardAvoidingView behavior='padding' style = {styles.container}>
         <View style = {styles.logoContainer}>
-          <Image
-            style = {styles.logoContainer}
-            source = {require('../../img/xhdpi/ic_launcher_foreground.png')}
-          />
+          <Text style = {styles.titleLabel}>Cadastre-se</Text>
         </View>
         <View style = {styles.formContainer}>
           <RegisterForm />
@@ -38,4 +35,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
   },
+  titleLabel: {
+    fontSize: 30,
+    color: '#E3F2FD',
+  }
 });
