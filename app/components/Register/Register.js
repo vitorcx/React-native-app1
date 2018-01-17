@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
 import RegisterForm from './RegisterForm'
@@ -14,6 +15,16 @@ export default class  Login extends Component {
   render() {
     return(
       <KeyboardAvoidingView behavior='padding' style = {styles.container}>
+        <TouchableOpacity style = {styles.backNavButtonContainer}
+          onPress = {() => {
+            this.props.navigator.pop();
+          }}
+        >
+          <Image
+            style = {styles.backNavButton}
+            source = {require('../../img/backNavIcon.png')}
+          />
+        </TouchableOpacity>
         <View style = {styles.logoContainer}>
           <Text style = {styles.titleLabel}>Cadastre-se</Text>
         </View>
