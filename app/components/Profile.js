@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
-  View
 } from 'react-native';
-import { Navigator } from 'react-native-deprecated-custom-components';
 
-export default class  Login extends Component {
+export default class Profile extends Component {
   render() {
-    return(
+    return (
       <Text>Profile</Text>
     );
   }

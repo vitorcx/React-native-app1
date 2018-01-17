@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
 } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
 
@@ -15,25 +13,24 @@ export default class app1 extends Component {
   render() {
     return (
       <Navigator
-        initialRoute = {{id: 'Login'}}
-        renderScene = {(route, navigator) => {
+        initialRoute={{ id: 'Login' }}
+        renderScene={(route, navigator) => {
           switch (route.id) {
             case 'Login':
-              return(<Login navigator = {navigator} />);
+              return (<Login navigator={navigator} />);
             case 'Register':
-              return(<Register navigator = {navigator} />);
+              return (<Register navigator={navigator} />);
             case 'Profile':
-              return(<Profile navigator = {navigator} />);
+              return (<Profile navigator={navigator} />);
             case 'HelpFeed':
-              return(<HelpFeed navigator = {navigator} />);
+              return (<HelpFeed navigator={navigator} />);
+            default:
+              return;
           }
         }}
       />
     );
   }
 }
-
-const styles = StyleSheet.create({
-});
 
 AppRegistry.registerComponent('app1', () => app1);

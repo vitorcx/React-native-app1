@@ -7,40 +7,40 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-export default class  Login extends Component {
+export default class RegisterForm extends Component {
   render() {
-    return(
-      <View style = {styles.container}>
+    return (
+      <View style={styles.container}>
         <TextInput
-          style = {styles.input}
-          placeholder = 'Nome de Usuário'
-          placeholderTextColor = '#E3F2FD'
-          underlineColorAndroid = '#E3F2FD'
+          style={styles.input}
+          placeholder='Nome de Usuário'
+          placeholderTextColor='#E3F2FD'
+          underlineColorAndroid='#E3F2FD'
         />
         <TextInput
-          style = {styles.input}
-          placeholder = 'E-Mail'
-          placeholderTextColor = '#E3F2FD'
-          underlineColorAndroid = '#E3F2FD'
-          keyboardType = 'email-address'
+          style={styles.input}
+          placeholder='E-Mail'
+          placeholderTextColor='#E3F2FD'
+          underlineColorAndroid='#E3F2FD'
+          keyboardType='email-address'
         />
         <TextInput
-          style = {styles.input}
-          placeholder = 'Senha'
-          placeholderTextColor = '#E3F2FD'
-          underlineColorAndroid = '#E3F2FD'
+          style={styles.input}
+          placeholder='Senha'
+          placeholderTextColor='#E3F2FD'
+          underlineColorAndroid='#E3F2FD'
           secureTextEntry
         />
         <TextInput
-          style = {styles.input}
-          placeholder = 'Confirmar Senha'
-          placeholderTextColor = '#E3F2FD'
-          underlineColorAndroid = '#E3F2FD'
+          style={styles.input}
+          placeholder='Confirmar Senha'
+          placeholderTextColor='#E3F2FD'
+          underlineColorAndroid='#E3F2FD'
           secureTextEntry
         />
 
-        <TouchableOpacity style = {styles.buttonContainer}>
-          <Text style = {styles.buttonText}>Cadastrar</Text>
+        <TouchableOpacity style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
     );

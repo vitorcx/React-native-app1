@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   KeyboardAvoidingView
 } from 'react-native';
-import { Navigator } from 'react-native-deprecated-custom-components';
 import LoginForm from './LoginForm';
 
-export default class  Login extends Component {
+const bulbIcon = require('../../img/xhdpi/ic_launcher_foreground.png');
+
+export default class Login extends Component {
   render() {
-    return(
-      <KeyboardAvoidingView behavior='padding' style = {styles.container}>
-        <View style = {styles.logoContainer}>
+    return (
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
+        <View style={styles.logoContainer}>
           <Image
-            source = {require('../../img/xhdpi/ic_launcher_foreground.png')}
+            source={bulbIcon}
           />
         </View>
-        <View style = {styles.formContainer}>
-          <LoginForm navigator = {this.props.navigator}/>
+        <View style={styles.formContainer}>
+          <LoginForm navigator={this.props.navigator} />
         </View>
       </KeyboardAvoidingView>
     );
@@ -29,7 +29,7 @@ export default class  Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1565C0",//material blue 800
+    backgroundColor: '#1565C0', //material blue 800
   },
   logoContainer: {
     alignItems: 'center',
