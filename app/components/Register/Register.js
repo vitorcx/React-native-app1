@@ -50,5 +50,9 @@ const styles = StyleSheet.create({
   titleLabel: {
     fontSize: 30,
     color: '#E3F2FD',
+    fontWeight: 'bold',
+  },
+  backNavButtonContainer: {
+    width: 64,
   }
 });

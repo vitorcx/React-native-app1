@@ -8,6 +8,20 @@ import {
 } from 'react-native';
 
 export default class LoginForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      emailInput: '',
+      passwordInput: '',
+    };
+  }
+
+  handleOnPressLogin() {
+    console.log(this.state.emailInput);
+    console.log(this.state.passwordInput);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -17,6 +31,7 @@ export default class LoginForm extends Component {
           placeholderTextColor='#E3F2FD'
           keyboardType='email-address'
           underlineColorAndroid='#E3F2FD'
+          onChangeText={(text) => this.setState({ emailInput: text })}
         />
         <TextInput
           style={styles.input}
@@ -24,9 +39,15 @@ export default class LoginForm extends Component {
           placeholderTextColor='#E3F2FD'
           secureTextEntry
           underlineColorAndroid='#E3F2FD'
+          onChangeText={(text) => this.setState({ passwordInput: text })}
         />
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            this.handleOnPressLogin();
+          }}
+        >
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity
