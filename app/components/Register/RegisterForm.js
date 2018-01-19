@@ -51,29 +51,26 @@ export default class RegisterForm extends Component {
           errorMessage = 'A senha precisa possuir ao menos 6 caracteres';
           break;
         case 'auth/email-already-in-use':
-          errorMessage = 'Este email já está em uso';
+          errorMessage = 'Este email já está sendo usado';
           break;
         case 'auth/operation-not-allowed':
           errorMessage = 'Operação inválida';
           break;
         default:
-          if (!this.validPasswordConfirmation()) {
-            errorMessage = 'Senhas Diferentes';
-          }
+          console.log('default');
+          return;
       }
       this.alerta('Preencha os campos corretamente', errorMessage);
-      return false;
     });
-    return true;
+    return errorMessage;
   }
 
   handleOnPressRegister() {
     console.log(this.state.emailInput);
     console.log(this.state.passwordInput);
     console.log(this.state.confirmPasswordInput);
-    if (!this.registerUser()) {
-      this.props.navigator.push({ id: 'Profile' });
-    }
+    const msg = this.registerUser();
+    console.log(msg);
   }
 
   render() {
