@@ -30,7 +30,7 @@ export default class Register extends Component {
           <Text style={styles.titleLabel}>Cadastre-se</Text>
         </View>
         <View style={styles.formContainer}>
-          <RegisterForm />
+          <RegisterForm navigator={this.props.navigator} />
         </View>
       </KeyboardAvoidingView>
     );

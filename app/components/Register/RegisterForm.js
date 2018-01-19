@@ -4,7 +4,8 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import firebase from 'firebase';
 
@@ -28,27 +29,51 @@ export default class RegisterForm extends Component {
       return false;
   }
 
+  alerta(title, message) {
+    Alert.alert(
+      'Preencha os campos corretamente',
+      message,
+      [
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false }
+    );
+  }
+
   registerUser(email = this.state.emailInput, password = this.state.passwordInput) {
-    if (this.validPasswordConfirmation()) {
-      firebase.auth.createUserWithEmailAndPassword(
-        email,
-        password
-      ).catch(
-        (error) => {
-          console.log(error.code);
-        });
-    }
-    console.log('pass confirm error');
+    let errorMessage;
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+      switch (error.code) {
+        case 'auth/invalid-email':
+          errorMessage = 'O endereço de email é inválido';
+          break;
+        case 'auth/weak-password':
+          errorMessage = 'A senha precisa possuir ao menos 6 caracteres';
+          break;
+        case 'auth/email-already-in-use':
+          errorMessage = 'Este email já está em uso';
+          break;
+        case 'auth/operation-not-allowed':
+          errorMessage = 'Operação inválida';
+          break;
+        default:
+          if (!this.validPasswordConfirmation()) {
+            errorMessage = 'Senhas Diferentes';
+          }
+      }
+      this.alerta('Preencha os campos corretamente', errorMessage);
+      return false;
+    });
+    return true;
   }
 
   handleOnPressRegister() {
     console.log(this.state.emailInput);
     console.log(this.state.passwordInput);
     console.log(this.state.confirmPasswordInput);
-    firebase.auth().createUserWithEmailAndPassword(
-      this.state.emailInput,
-      this.state.passwordInput,
-    );
+    if (!this.registerUser()) {
+      this.props.navigator.push({ id: 'Profile' });
+    }
   }
 
   render() {
