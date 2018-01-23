@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { changeEmail, changePassword, registerUser } from '../../actions/authActions';
+import { changeEmail, changePassword, changeName, registerUser } from '../../actions/authActions';
 
 
 class RegisterForm extends Component {
@@ -23,13 +23,21 @@ class RegisterForm extends Component {
   handleOnPressRegister() {
     console.log(this.props.email);
     console.log(this.props.password);
-    const { email, password } = this.props;
-    this.props.registerUser({ email, password });
+    const { name, email, password } = this.props;
+    this.props.registerUser({ name, email, password });
   }
 
   render() {
     return (
       <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder='Nome'
+        placeholderTextColor='#E3F2FD'
+        underlineColorAndroid='#E3F2FD'
+        onChangeText={(text) => { this.props.changeName(text); }}
+        value={this.props.name}
+      />
         <TextInput
           style={styles.input}
           placeholder='E-Mail'
@@ -95,6 +103,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => (
   {
+    name: state.AuthReducer.name,
     email: state.AuthReducer.email,
     password: state.AuthReducer.password,
     errorMessage: state.AuthReducer.errorMessage
@@ -106,6 +115,7 @@ export default connect(
   {
     changeEmail,
     changePassword,
+    changeName,
     registerUser
   })(RegisterForm);
 

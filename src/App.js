@@ -10,6 +10,14 @@ import reducers from './reducers/index.js';
 const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 export default class App extends Component {
+
+  constructor(props) {
+     super(props);
+     console.ignoredYellowBox = [
+         'Setting a timer'
+     ];
+ }
+
   componentWillMount() {
     const config = {
       apiKey: 'AIzaSyCBCVjYyeU_wLijynjmzKdqvVF76eOse5I',
