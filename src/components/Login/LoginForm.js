@@ -9,7 +9,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import { changeEmail, changePassword } from '../../actions/authActions';
+import { changeEmail, changePassword, loginUser } from '../../actions/authActions';
 
 class LoginForm extends Component {
 
@@ -21,11 +21,14 @@ class LoginForm extends Component {
   handleOnPressLogin() {
     console.log(this.props.email);
     console.log(this.props.password);
+    const { email, password } = this.props;
+    this.props.loginUser({ email, password });
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.errorMessage}>{this.props.errorMessage}</Text>
         <TextInput
           style={styles.input}
           placeholder='E-Mail'
@@ -88,14 +91,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#E3F2FD',
     marginTop: 5,
-  }
+  },
+  errorMessage: {
+    color: '#E3F2FD',
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
 });
 
 const mapStateToProps = state => (
   {
     email: state.AuthReducer.email,
-    password: state.AuthReducer.password
+    password: state.AuthReducer.password,
+    errorMessage: state.AuthReducer.errorMessage,
   }
 );
 
-export default connect(mapStateToProps, { changeEmail, changePassword })(LoginForm);
+export default connect(mapStateToProps, { changeEmail, changePassword, loginUser })(LoginForm);

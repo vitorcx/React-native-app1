@@ -22,5 +22,8 @@ export default (state = INITIAL_STATE, action) => {
   if (action.type === 'register_user_success') {
     return { ...state, password: '' };
   }
+  if (action.type === 'login_user_fail') {
+    return { ...state, errorMessage: action.payload };
+  }
   return state;
 };

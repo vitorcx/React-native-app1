@@ -27,7 +27,6 @@ export const changeName = (text) => {
 };
 
 export const registerUser = ({ name, email, password }) => {
-  console.log('nome :' + name);
   return dispatch => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -53,6 +52,33 @@ const registerUserFail = (error, dispatch) => {
   dispatch(
     {
       type: 'register_user_fail',
+      payload: error.message,
+    }
+  );
+};
+
+export const loginUser = ({ email, password }) => {
+  console.log(email);
+  return dispatch => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => loginUserSuccess(dispatch))
+    .catch((error) => loginUserFail(error, dispatch));
+  };
+};
+
+const loginUserSuccess = (dispatch) => {
+  dispatch(
+    {
+      type: 'login_user_success',
+    }
+  );
+  Actions.profile();
+};
+
+const loginUserFail = (error, dispatch) => {
+  dispatch(
+    {
+      type: 'login_user_fail',
       payload: error.message,
     }
   );
