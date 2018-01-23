@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class LoginForm extends Component {
 
@@ -52,7 +53,7 @@ export default class LoginForm extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            this.props.navigator.push({ id: 'Register' });
+            Actions.register();
           }}
         >
           <Text style={styles.footerLinkText}>Cadastre-se</Text>

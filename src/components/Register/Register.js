@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  Text,
   View,
-  Image,
   KeyboardAvoidingView
 } from 'react-native';
-import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
-const bulbIcon = require('../../img/xhdpi/ic_launcher_foreground.png');
 
-export default class Login extends Component {
+export default class Register extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image
-            source={bulbIcon}
-          />
+          <Text style={styles.titleLabel}>Cadastre-se</Text>
         </View>
         <View style={styles.formContainer}>
-          <LoginForm navigator={this.props.navigator} />
+          <RegisterForm />
         </View>
       </KeyboardAvoidingView>
     );
@@ -36,4 +33,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
   },
+  titleLabel: {
+    fontSize: 30,
+    color: '#E3F2FD',
+    fontWeight: 'bold',
+  },
+  backNavButtonContainer: {
+    width: 64,
+  }
 });
