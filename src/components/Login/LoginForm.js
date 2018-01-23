@@ -7,8 +7,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
 
   constructor(props) {
     super(props);
@@ -33,6 +34,7 @@ export default class LoginForm extends Component {
           keyboardType='email-address'
           underlineColorAndroid='#E3F2FD'
           onChangeText={(text) => this.setState({ emailInput: text })}
+          value={this.props.email}
         />
         <TextInput
           style={styles.input}
@@ -41,6 +43,7 @@ export default class LoginForm extends Component {
           secureTextEntry
           underlineColorAndroid='#E3F2FD'
           onChangeText={(text) => this.setState({ passwordInput: text })}
+          value={this.props.password}
         />
 
         <TouchableOpacity
@@ -88,3 +91,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
   }
 });
+
+const mapStateToProps = state => (
+  {
+    email: state.AuthReducer.email,
+    password: state.AuthReducer.password
+  }
+);
+
+export default connect(mapStateToProps, null)(LoginForm);

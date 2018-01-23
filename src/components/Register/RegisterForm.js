@@ -9,8 +9,12 @@ import {
 } from 'react-native';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
-export default class RegisterForm extends Component {
+import { changeEmail, changePassword } from '../../actions/authActions';
+
+
+class RegisterForm extends Component {
 
   constructor(props) {
     super(props);
@@ -21,47 +25,9 @@ export default class RegisterForm extends Component {
     };
   }
 
-  alerta(title, message) {
-    Alert.alert(
-      'Preencha os campos corretamente',
-      message,
-      [
-        { text: 'OK', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false }
-    );
-  }
-
-  registerUser(email = this.state.emailInput, password = this.state.passwordInput) {
-    let errorMessage;
-    this.setState({ loadingAuth: true });
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-      this.setState({ loadingAuth: false });
-    }).catch((error) => {
-        switch (error.code) {
-          case 'auth/invalid-email':
-            errorMessage = 'O endereço de email é inválido';
-            break;
-          case 'auth/weak-password':
-            errorMessage = 'A senha precisa possuir ao menos 6 caracteres';
-            break;
-          case 'auth/email-already-in-use':
-            errorMessage = 'Este email já está sendo usado';
-            break;
-          case 'auth/operation-not-allowed':
-            errorMessage = 'Operação inválida';
-            break;
-          default:
-            console.log(error.code);
-            return errorMessage;
-        }
-        return errorMessage;
-    });
-  }
-
   handleOnPressRegister() {
-    console.log(this.state.emailInput);
-    console.log(this.state.passwordInput);
+    console.log(this.props.email);
+    console.log(this.props.password);
   }
 
   render() {
@@ -73,7 +39,8 @@ export default class RegisterForm extends Component {
           placeholderTextColor='#E3F2FD'
           underlineColorAndroid='#E3F2FD'
           keyboardType='email-address'
-          onChangeText={(text) => this.setState({ emailInput: text })}
+          onChangeText={(text) => { this.props.changeEmail(text); }}
+          value={this.props.email}
         />
         <TextInput
           style={styles.input}
@@ -81,7 +48,8 @@ export default class RegisterForm extends Component {
           placeholderTextColor='#E3F2FD'
           underlineColorAndroid='#E3F2FD'
           secureTextEntry
-          onChangeText={(text) => this.setState({ passwordInput: text })}
+          onChangeText={(text) => { this.props.changePassword(text); }}
+          value={this.props.password}
         />
 
         <TouchableOpacity
@@ -118,6 +86,15 @@ const styles = StyleSheet.create({
     color: '#E3F2FD',
   },
 });
+
+const mapStateToProps = state => (
+  {
+    email: state.AuthReducer.email,
+    password: state.AuthReducer.password
+  }
+);
+
+export default connect(mapStateToProps, { changeEmail, changePassword })(RegisterForm);
 
 /*
 if (error.code === 'auth/invalid-email') {
