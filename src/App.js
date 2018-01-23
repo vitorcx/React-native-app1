@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
 import Routes from './Routes';
+import reducers from './reducers/index.js';
+
+const store = createStore(reducers);
 
 export default class App extends Component {
   componentWillMount() {
@@ -15,9 +21,20 @@ export default class App extends Component {
     firebase.initializeApp(config);
   }
 
+  componentDidMount() {
+    this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
+      this.setState({
+        loading: false,
+        user,
+      });
+    });
+  }
+
   render() {
     return (
-      <Routes />
+      <Provider store={store}>
+        <Routes />
+      </Provider>
     );
   }
 }

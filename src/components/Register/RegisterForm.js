@@ -8,6 +8,7 @@ import {
   Alert
 } from 'react-native';
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 export default class RegisterForm extends Component {
 
@@ -16,17 +17,8 @@ export default class RegisterForm extends Component {
     this.state = {
       emailInput: '',
       passwordInput: '',
-      confirmPasswordInput: '',
+      loadingAuth: false,
     };
-  }
-
-  validPasswordConfirmation(
-    password = this.state.passwordInput,
-    confirmPassword = this.state.confirmPasswordInput) {
-      if (password === confirmPassword) {
-        return true;
-      }
-      return false;
   }
 
   alerta(title, message) {
@@ -42,35 +34,34 @@ export default class RegisterForm extends Component {
 
   registerUser(email = this.state.emailInput, password = this.state.passwordInput) {
     let errorMessage;
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-      switch (error.code) {
-        case 'auth/invalid-email':
-          errorMessage = 'O endereço de email é inválido';
-          break;
-        case 'auth/weak-password':
-          errorMessage = 'A senha precisa possuir ao menos 6 caracteres';
-          break;
-        case 'auth/email-already-in-use':
-          errorMessage = 'Este email já está sendo usado';
-          break;
-        case 'auth/operation-not-allowed':
-          errorMessage = 'Operação inválida';
-          break;
-        default:
-          console.log('default');
-          return;
-      }
-      this.alerta('Preencha os campos corretamente', errorMessage);
+    this.setState({ loadingAuth: true });
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+      this.setState({ loadingAuth: false });
+    }).catch((error) => {
+        switch (error.code) {
+          case 'auth/invalid-email':
+            errorMessage = 'O endereço de email é inválido';
+            break;
+          case 'auth/weak-password':
+            errorMessage = 'A senha precisa possuir ao menos 6 caracteres';
+            break;
+          case 'auth/email-already-in-use':
+            errorMessage = 'Este email já está sendo usado';
+            break;
+          case 'auth/operation-not-allowed':
+            errorMessage = 'Operação inválida';
+            break;
+          default:
+            console.log(error.code);
+            return errorMessage;
+        }
+        return errorMessage;
     });
-    return errorMessage;
   }
 
   handleOnPressRegister() {
     console.log(this.state.emailInput);
     console.log(this.state.passwordInput);
-    console.log(this.state.confirmPasswordInput);
-    const msg = this.registerUser();
-    console.log(msg);
   }
 
   render() {
@@ -91,14 +82,6 @@ export default class RegisterForm extends Component {
           underlineColorAndroid='#E3F2FD'
           secureTextEntry
           onChangeText={(text) => this.setState({ passwordInput: text })}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder='Confirmar Senha'
-          placeholderTextColor='#E3F2FD'
-          underlineColorAndroid='#E3F2FD'
-          secureTextEntry
-          onChangeText={(text) => this.setState({ confirmPasswordInput: text })}
         />
 
         <TouchableOpacity
@@ -135,3 +118,15 @@ const styles = StyleSheet.create({
     color: '#E3F2FD',
   },
 });
+
+/*
+if (error.code === 'auth/invalid-email') {
+  errorMessage = 'O endereço de email é inválido';
+} else if (error.code === 'auth/weak-password') {
+  errorMessage = 'A senha precisa possuir ao menos 6 caracteres';
+} else if (error.code === 'auth/email-already-in-use') {
+  errorMessage = 'Este email já está sendo usado';
+} else if (error.code === 'auth/operation-not-allowed') {
+  errorMessage = 'Operação inválida';
+}
+*/
