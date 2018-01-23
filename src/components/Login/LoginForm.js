@@ -9,19 +9,18 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
+import { changeEmail, changePassword } from '../../actions/authActions';
+
 class LoginForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      emailInput: '',
-      passwordInput: '',
-    };
+    this.state = {};
   }
 
   handleOnPressLogin() {
-    console.log(this.state.emailInput);
-    console.log(this.state.passwordInput);
+    console.log(this.props.email);
+    console.log(this.props.password);
   }
 
   render() {
@@ -33,7 +32,7 @@ class LoginForm extends Component {
           placeholderTextColor='#E3F2FD'
           keyboardType='email-address'
           underlineColorAndroid='#E3F2FD'
-          onChangeText={(text) => this.setState({ emailInput: text })}
+          onChangeText={(text) => { this.props.changeEmail(text); }}
           value={this.props.email}
         />
         <TextInput
@@ -42,7 +41,7 @@ class LoginForm extends Component {
           placeholderTextColor='#E3F2FD'
           secureTextEntry
           underlineColorAndroid='#E3F2FD'
-          onChangeText={(text) => this.setState({ passwordInput: text })}
+          onChangeText={(text) => { this.props.changePassword(text); }}
           value={this.props.password}
         />
 
@@ -99,4 +98,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps, null)(LoginForm);
+export default connect(mapStateToProps, { changeEmail, changePassword })(LoginForm);
