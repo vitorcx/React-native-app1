@@ -1,5 +1,4 @@
 import React from 'react';
-import { Navigator } from 'react-native-deprecated-custom-components';
 import { Router, Scene, Stack } from 'react-native-router-flux';
 
 import Login from './components/Login/Login';
@@ -19,7 +18,6 @@ export default props => (
         key='register'
         component={Register}
         title='Cadastro'
-        sceneConfig={Navigator.SceneConfigs.FloatFromRight}
         hideNavBar='true'
       />
     </Stack>
