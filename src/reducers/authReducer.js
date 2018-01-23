@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   nome: '',
   email: '',
   password: '',
+  errorMessage: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -11,6 +12,9 @@ export default (state = INITIAL_STATE, action) => {
   }
   if (action.type === 'change_password') {
     return { ...state, password: action.payload };
+  }
+  if (action.type === 'register_user_fail') {
+    return { ...state, errorMessage: action.payload };
   }
   return state;
 };

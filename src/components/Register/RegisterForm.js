@@ -4,14 +4,11 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
-  Alert
+  TouchableOpacity
 } from 'react-native';
-import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import { changeEmail, changePassword } from '../../actions/authActions';
+import { changeEmail, changePassword, registerUser } from '../../actions/authActions';
 
 
 class RegisterForm extends Component {
@@ -26,6 +23,8 @@ class RegisterForm extends Component {
   handleOnPressRegister() {
     console.log(this.props.email);
     console.log(this.props.password);
+    const { email, password } = this.props;
+    this.props.registerUser({ email, password });
   }
 
   render() {
@@ -50,14 +49,17 @@ class RegisterForm extends Component {
           value={this.props.password}
         />
 
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => {
-            this.handleOnPressRegister();
-          }}
-        >
-          <Text style={styles.buttonText}>CADASTRAR</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonAndError}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => {
+              this.handleOnPressRegister();
+            }}
+          >
+            <Text style={styles.buttonText}>CADASTRAR</Text>
+          </TouchableOpacity>
+          <Text style={styles.errorMessage}>{this.props.errorMessage}</Text>
+        </View>
       </View>
     );
   }
@@ -76,23 +78,36 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#0D47A1',
     paddingVertical: 15,
-    marginBottom: 100,
-
   },
   buttonText: {
     textAlign: 'center',
     color: '#E3F2FD',
   },
+  errorMessage: {
+    color: '#E3F2FD',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  buttonAndError: {
+    marginBottom: 100,
+  }
 });
 
 const mapStateToProps = state => (
   {
     email: state.AuthReducer.email,
-    password: state.AuthReducer.password
+    password: state.AuthReducer.password,
+    errorMessage: state.AuthReducer.errorMessage
   }
 );
 
-export default connect(mapStateToProps, { changeEmail, changePassword })(RegisterForm);
+export default connect(
+  mapStateToProps,
+  {
+    changeEmail,
+    changePassword,
+    registerUser
+  })(RegisterForm);
 
 /*
 if (error.code === 'auth/invalid-email') {
