@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   errorMessage: '',
+  userData: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,6 +24,12 @@ export default (state = INITIAL_STATE, action) => {
     return { ...state, password: '' };
   }
   if (action.type === 'login_user_fail') {
+    return { ...state, errorMessage: action.payload };
+  }
+  if (action.type === 'load_current_user_success') {
+    return { ...state, userData: action.payload };
+  }
+  if (action.type === 'load_current_user_fail') {
     return { ...state, errorMessage: action.payload };
   }
   return state;

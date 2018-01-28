@@ -25,7 +25,6 @@ export default props => (
         key='profile'
         component={Profile}
         title='Perfil'
-        hideNavBar='true'
       />
     </Stack>
   </Router>

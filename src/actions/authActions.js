@@ -83,3 +83,37 @@ const loginUserFail = (error, dispatch) => {
     }
   );
 };
+
+
+export const loadCurrentUser = () => {
+  const user = firebase.auth().currentUser;
+  return dispatch => {
+    if (user) {
+      const userData = {
+        email: user.email,
+      };
+      loadCurrentUserSuccess(userData, dispatch);
+    } else {
+      loadCurrentUserFail(dispatch);
+    }
+  };
+};
+
+const loadCurrentUserSuccess = (userData, dispatch) => {
+  dispatch(
+    {
+      type: 'load_current_user_success',
+      payload: userData,
+    }
+  );
+};
+
+const loadCurrentUserFail = (dispatch) => {
+  const error = 'Ocorreu um erro ao carregar seus dados';
+  dispatch(
+    {
+      type: 'load_current_user_fail',
+      payload: error,
+    }
+  );
+};
