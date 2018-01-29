@@ -89,8 +89,12 @@ export const loadCurrentUser = () => {
   const user = firebase.auth().currentUser;
   return dispatch => {
     if (user) {
+      const emailb64 = b64.encode(user.email);
+      //continuar daqui
+      const userData = firebase.database().ref(`/users/${emailb64}/name`)
       const userData = {
         email: user.email,
+        name: user.name,
       };
       loadCurrentUserSuccess(userData, dispatch);
     } else {
